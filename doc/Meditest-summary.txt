@@ -1,0 +1,126 @@
+```Excelent — articolul „Medi-Test: Generating Tests from Medical Reference Texts” (Pistol, Trandabăț, Răschip, UAIC Iași, 2018) descrie un sistem foarte asemănător cu ideea voastră de SmarTest, doar aplicat domeniului medical.
+
+Iată o sinteză clară și ușor de înțeles a ideilor din articol și cum le puteți adapta la proiectul vostru:
+
+🧩 1. Ideea de bază
+
+Medi-Test este o aplicație care:
+
+preia texte (manuale, cursuri, articole),
+
+extrage automat concepte și relații între ele,
+
+construiește o ontologie (bază de cunoștințe structurată),
+
+folosește această ontologie pentru a genera întrebări și răspunsuri automat,
+
+produce teste de diferite dificultăți (ușor, mediu, greu),
+
+poate adăuga imagini în întrebări (prin OCR + procesare).
+
+Totul rulează local, fără LLM-uri sau API-uri externe — exact cum cere proiectul vostru.
+
+⚙️ 2. Arhitectura sistemului
+
+Sistemul are două module mari:
+
+🔹 Modul 1: Ontology Builder
+
+Primește texte brute (PDF, DOC, etc.).
+
+Face preprocesare: extragere text, lematizare, POS tagging, recunoaștere entități.
+
+Identifică relații semantice:
+
+IS-A („inimă” este un „organ”)
+
+Echivalență (sinonime)
+
+GENEREAZĂ (relații cauză-efect)
+
+CONȚINE („sistemul nervos conține creierul”)
+
+Creează fișiere .owl cu aceste relații (ontologie RDF/OWL).
+
+Se poate vizualiza/edită în Protégé.
+
+🔹 Modul 2: Test Generator
+
+Folosește conceptele și relațiile din ontologie pentru a crea:
+
+întrebări multiple-choice, fill-in-the-blanks, da/nu, matching.
+
+Generează automat variante corecte și greșite, folosind sinonime sau concepte apropiate.
+
+Poate ajusta dificultatea în funcție de:
+
+distanța ontologică între termeni (cât de apropiate sunt în arbore),
+
+asemănarea lexicală (Levenshtein distance),
+
+prezența paronimelor (cuvinte asemănătoare).
+
+Poate include imagini, din care extrage text prin OCR (Tesseract + LSTM local).
+
+🤖 3. Cum funcționează generarea de întrebări (fără LLM)
+
+Exemplu de reguli simple:
+
+Dacă ontologia conține relația C2 IS-A C1 → „Care dintre următoarele este un exemplu de C1?”
+(Răspuns corect: C2)
+
+Dacă există o definiție → „Ce este [conceptul]?”
+
+Dacă relația e cauzală → „Ce generează X?” sau „Ce este generat de X?”
+
+Din propoziții definite → transformare în întrebări „fill in the blanks”.
+
+Astfel, sistemul se bazează pe:
+
+reguli NLP simple (pattern-uri lexicale),
+
+structura ontologică (relațiile IS-A, GENEREAZĂ etc.),
+
+resurse lexicale (DEX online pentru sinonime/paronime).
+
+📷 4. Adăugarea imaginilor
+
+Se folosește Tesseract OCR (versiunea cu LSTM) pentru a extrage text din imagini.
+
+Imaginea originală este procesată pentru a elimina textul → studentul completează etichetele lipsă.
+
+Se generează automat întrebări de tip:
+
+„Identifică elementele din imagine.”
+
+„Completează etichetele lipsă: [a], [b]...”
+
+Verificarea răspunsurilor se face prin similaritate cosinus între textul introdus și răspunsul corect (după stemming).
+
+📊 5. Generarea testelor și evaluarea
+
+Testele nu sunt predefinite — se generează dinamic în funcție de:
+
+număr de întrebări,
+
+dificultate,
+
+durată.
+
+Sistemul selectează întrebări din baza de date în funcție de parametrii aleși.
+
+Evaluează automat răspunsurile și calculează scorul final.
+
+Stochează răspunsurile pentru ajustarea ulterioară a dificultății.
+
+💡 6. Cum puteți folosi aceste idei în SmarTest
+
+Voi puteți adapta Medi-Test pentru domeniul Inteligenței Artificiale astfel:
+
+Componentă Medi-Test	Echivalent SmarTest
+Textele medicale (manuale, articole)	Materialele de curs de IA
+Ontologie medicală	Ontologie IA (probleme, algoritmi, relații)
+Generare automată de întrebări	Generare întrebări IA (Backtracking, CSP, Game Theory etc.)
+Test Generator	Modul de testare SmarTest
+OCR pentru imagini	opțional (ex: diagrame MinMax, arbori de joc)
+Evaluare automată	Comparare text / algoritmică + scor procentual```
