@@ -1,0 +1,49 @@
+```
+import random
+
+# Definim șabloane pentru fiecare problemă
+problem_templates = {
+    "N-Queens": {
+        "template": "Se dă o tablă de dimensiune {n}×{n}. Să se determine o modalitate de a plasa {n} regine astfel încât nici două să nu se atace. Ce strategie de rezolvare este cea mai potrivită?",
+        "params": lambda: {"n": random.randint(4, 12)},
+        "strategy": "Backtracking"
+    },
+    "Generalised Hanoi": {
+        "template": "Se consideră problema Turnurilor din Hanoi cu {d} discuri și {t} tije. Care este strategia potrivită pentru rezolvarea acestei probleme?",
+        "params": lambda: {"d": random.randint(3, 8), "t": random.randint(3, 5)},
+        "strategy": "Divide et Impera"
+    },
+    "Graph Coloring": {
+        "template": "Se dă un graf neorientat cu {v} vârfuri și {e} muchii. Se dorește colorarea vârfurilor folosind cel mult {k} culori, astfel încât vârfurile adiacente să aibă culori diferite. Ce strategie de rezolvare este recomandată?",
+        "params": lambda: {"v": random.randint(5, 15), "e": random.randint(10, 30), "k": random.randint(3, 6)},
+        "strategy": "Backtracking"
+    },
+    "Knight’s Tour": {
+        "template": "Se consideră o tablă de dimensiune {n}×{n}. Un cal trebuie să viziteze fiecare poziție exact o dată. Care strategie de rezolvare este cea mai potrivită pentru această problemă?",
+        "params": lambda: {"n": random.choice([5, 6, 8, 10])},
+        "strategy": "Euristici (ex: regula lui Warnsdorff)"
+    }
+}
+
+def generate_instance():
+    # Alegem o problemă aleatorie
+    problem_name = random.choice(list(problem_templates.keys()))
+    problem_info = problem_templates[problem_name]
+    
+    # Generăm parametrii
+    params = problem_info["params"]()
+    
+    # Completăm șablonul
+    question = problem_info["template"].format(**params)
+    
+    return {
+        "problema": problem_name,
+        "cerinta": question,
+        "strategie_corecta": problem_info["strategy"]
+    }
+
+# Generăm 5 cerințe diferite
+for i in range(5):
+    instance = generate_instance()
+    print(f"Întrebare {i+1}: {instance['cerinta']}")
+    print(f"→ (Intern) Problema: {instance['problema']}, Strategie corectă: {instance['strategie_corecta']}\n")```
