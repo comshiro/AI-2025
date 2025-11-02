@@ -1,0 +1,339 @@
+[ {
+  "@id" : "http://webprotege.stanford.edu/R74ORQSgThxjA1L8kdJTcfz",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "BFS"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R79wwvoJ1L5hUa9mMnKgx9m",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Algorithm"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R7IPE0dUCVI1d4MJNALdYCu",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "AlphaBetaPruning"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R79wwvoJ1L5hUa9mMnKgx9m"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R7N2CgTNGhLhcyGL8h4EjCr",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "UniformCost"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R7ODcONIVHdZeS4jhk4FooS",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Heuristics"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R7VWhoE8qmQmb4eKPZZA4aU",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "HillClimbing"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R7qke5AtbSdCyZJL1wKVKPM",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Sudoku"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RCDENyrs7tUMxiuuQXGOVek"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R8L73vuUprFnh2g8EhagCTe",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Beam"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R8j7hNZwe8acB7fJ1O4CYe5",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "MRV"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R7ODcONIVHdZeS4jhk4FooS"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R8szrZqn25gjd5Usla01aqy",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "SimulatedAnnealing"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R938uiMb2gw9WC0AFhHxkTX",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "ForwardChecking"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD2sHFt2LWVu2B146iMWYCK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Uninformed"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R79wwvoJ1L5hUa9mMnKgx9m"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R9ipCspVMTERHtgqC6JSDMm",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GreedyBestFirst"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R9u5eWWyXttXyH7LzarhxAD",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "IDA*"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R9vJcmaNVI5czEBq6LZjm38",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "N_Queens"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RCDENyrs7tUMxiuuQXGOVek"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/R9z1KiQjiwnR9Qekyg2ZHjh",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Coloring"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RCDENyrs7tUMxiuuQXGOVek"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RBuUoVV0goUOrjSWaFPMuvK",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "QType"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RC84ynTXx9OvIDLcR9oHTwz",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "RandomSearch"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCDENyrs7tUMxiuuQXGOVek",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CSP"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RBuUoVV0goUOrjSWaFPMuvK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCfUUsakeLbrkMrh59L3ent",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "BidirectionalSearch"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCjzyW0HHS8mqogDZcNfpFd",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "ArcConsistency"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD2sHFt2LWVu2B146iMWYCK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCoSYs5mx4HRdjJ2YTBNTbZ",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GameTheory"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RBuUoVV0goUOrjSWaFPMuvK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCp3JwU1nui0CKxJ47PTHSc",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "A*"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCpIpojhRvtgcRw0QbwSDfw",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Concept"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCpfuG6ftwfCWAF2LCSxoEX",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "SearchProblemIdentification"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RBuUoVV0goUOrjSWaFPMuvK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RCtcSiym6jLxnaZdeVpuIAZ",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "DFS"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RD0BsHF5Gp106qz0ZiWOsMH",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Informed"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R79wwvoJ1L5hUa9mMnKgx9m"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RD2sHFt2LWVu2B146iMWYCK",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Backtracking"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R9YObBFwwJWRx9dTkWPUP7k"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/REe8MZrb4oK3pIWBftrn6j",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "CryptarithmeticPuzzle"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RCDENyrs7tUMxiuuQXGOVek"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RK2npN0GJPFaF2DfFl7ROv",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Backjumping"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RD2sHFt2LWVu2B146iMWYCK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/ROc5adx0mVyIgaEUUQXWRS",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "JobShopScheduling"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RCDENyrs7tUMxiuuQXGOVek"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RQw4HKSD1ev83J9MkZgt6w",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Minimax"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R79wwvoJ1L5hUa9mMnKgx9m"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RVSgP5wn5JiZWumNYB94k8",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "AdversarialSearch"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/RBuUoVV0goUOrjSWaFPMuvK"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/RWsxJQNUHRswqwdzM8jZ4v",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "usesAlgorithm"
+  } ]
+}, {
+  "@id" : "http://webprotege.stanford.edu/Rykwx9nO0FRIY82M7wteHK",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "GraphColoring"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "http://webprotege.stanford.edu/R79wwvoJ1L5hUa9mMnKgx9m"
+  } ]
+}, {
+  "@id" : "urn:webprotege:ontology:6932550a-5106-41b0-860b-88ebfd45b997",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+} ]
