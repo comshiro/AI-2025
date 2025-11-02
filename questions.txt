@@ -1,0 +1,50 @@
+1. [Beam] O companie IT trebuie să aloce 7 angajați către 5 proiecte. Fiecare proiect are un scor estimativ de profit și un termen limită. Deoarece spațiul soluțiilor este foarte mare, se vor păstra doar cele mai bune 2 combinații la fiecare nivel al căutării. Ce strategie de căutare se aplică în acest caz?
+
+2. [A*] Un serviciu de livrări planifică traseul unui curier între Iași și Oradea pe o hartă cu 12 locații conectate. Costurile pot fi afectate de trafic și distanță. Cum se poate calcula ruta cea mai eficientă folosind o funcție euristică?
+
+3. [DFS Maze] Un robot autonom pornește din colțul stânga-sus al unui labirint de dimensiune 11×9 și trebuie să ajungă la o ieșire amplasată aleatoriu. Robotul explorează mereu cea mai adâncă cale posibilă înainte de a reveni la un nod anterior. Cum ar trebui implementată strategia de căutare pentru a explora complet labirintul?
+
+4. [Coloring] Se dă un graf cu 7 noduri și 12 muchii, cu vecinătățile specificate în lista [(6, 4), (5, 0), (5, 2), (2, 4), (4, 0), (1, 6), (5, 1), (6, 3), (4, 3), (3, 0), (2, 1), (3, 5)]. Atribuie culori fiecărui nod astfel încât nodurile adiacente să aibă culori diferite, minimizând numărul total de culori utilizate. Ce strategii și euristici pot fi aplicate pentru a găsi o soluție?
+
+5. [N-Queens] Să se plaseze 8 regine pe o tablă de șah de dimensiune 8×8 astfel încât niciuna să nu se atace reciproc pe linie, coloană sau diagonală. Care ar fi cea mai potrivita strategie pentru a determina o solutie a acestei probleme?
+
+6. [Hanoi] O macara automatizată trebuie să mute 9 containere de diferite dimensiuni între 9 zone de depozitare, fără a încălca regula de greutate (un container mai greu nu poate fi plasat peste unul mai ușor). Cum se poate planifica succesiunea mutărilor pentru a atinge scopul final în cel mai scurt timp posibil?
+
+7. [8-Puzzle] Se dă un puzzle glisant 3×3 cu 8 piese numerotate și un spațiu liber. Configurația inițială este [2, 1, 7, 4, 8, 6, 3, 0, 5], iar scopul este să ajungi la [1, 2, 3, 4, 5, 6, 7, 8, 0]. Determină secvența optimă de mutări care minimizează numărul total de pași, folosind o funcție de cost f(n)=g(n)+h(n). Ce algoritm este cel mai potrivit?
+
+8. [Job] Un sistem de planificare trebuie să atribuie 8 sarcini pe 3 echipamente, ținând cont de durata fiecărei operații și de relațiile de dependență. Cum se poate optimiza ordonarea execuțiilor?
+
+9. [Knight's Tour] Un cal de șah trebuie să viziteze toate cele 5×5 pătrate ale tablei exact o dată, pornind din poziția (3, 2). Planifică traseul complet astfel încât calul să ajungă pe fiecare pătrat o singură dată. Cum se poate genera o astfel de secvență de mutări?
+
+10. [Sudoku] Se dă o grilă Sudoku parțial completată de dimensiune 9×9. Completează spațiile libere respectând regulile jocului: fiecare număr de la 1 la 9 trebuie să apară exact o dată pe rând, coloană și în fiecare bloc 3×3. Grila este:
+0 0 0 7 3 0 0 0 4
+0 7 0 0 0 0 0 6 0
+5 0 8 0 0 0 0 0 0
+6 4 0 0 0 9 6 0 0
+0 0 9 0 1 0 8 1 0
+0 6 7 7 0 0 0 0 0
+5 0 0 0 7 0 0 0 0
+9 6 0 0 0 0 0 0 0
+0 0 0 9 0 0 0 8 0
+Ce strategie de rezolvare consideri mai eficientă?
+
+11. [Knight's Tour] Un cal de șah trebuie să viziteze toate cele 5×5 pătrate ale tablei exact o dată, pornind din poziția (1, 0). Planifică traseul complet astfel încât calul să ajungă pe fiecare pătrat o singură dată. Cum se poate genera o astfel de secvență de mutări?
+
+12. [Beam] O companie IT trebuie să aloce 7 angajați către 4 proiecte. Fiecare proiect are un scor estimativ de profit și un termen limită. Deoarece spațiul soluțiilor este foarte mare, se vor păstra doar cele mai bune 4 combinații la fiecare nivel al căutării. Ce strategie de căutare se aplică în acest caz?
+
+13. [Sudoku] Se dă o grilă Sudoku parțial completată de dimensiune 9×9. Completează spațiile libere respectând regulile jocului: fiecare număr de la 1 la 9 trebuie să apară exact o dată pe rând, coloană și în fiecare bloc 3×3. Grila este:
+2 0 0 6 0 0 0 0 5
+0 3 7 0 0 4 0 0 2
+0 3 2 0 0 9 0 8 0
+0 0 0 0 0 0 0 0 0
+0 5 0 0 5 0 0 0 0
+0 0 8 6 8 0 0 0 0
+5 0 4 0 0 0 0 6 0
+0 3 0 0 0 2 0 0 0
+0 0 0 0 5 7 0 0 0
+Ce strategie de rezolvare consideri mai eficientă?
+
+14. [Coloring] Fie o hartă cu 7 regiuni și 9 granițe, unde vecinătățile sunt date de lista [(2, 5), (5, 4), (6, 5), (4, 2), (3, 6), (1, 4), (4, 3), (6, 2), (2, 1)]. Trebuie să atribui fiecărei regiuni o culoare astfel încât două regiuni adiacente să nu aibă aceeași culoare și să folosești cât mai puține culori. Cum poate fi modelată această problemă și ce metode de rezolvare sunt eficiente?
+
+15. [A*] Un serviciu de livrări planifică traseul unui curier între București și Sibiu pe o hartă cu 11 locații conectate. Costurile pot fi afectate de trafic și distanță. Cum se poate calcula ruta cea mai eficientă folosind o funcție euristică?
+

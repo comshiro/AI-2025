@@ -1,0 +1,95 @@
+Problema 1: Beam
+Strategii:
+   1. Beam Search
+   2. Greedy Best-First
+   3. Hill-Climbing
+
+Problema 2: A*
+Strategii:
+   1. A* Search
+   2. Greedy Best-First
+   3. Uniform Cost Search
+
+Problema 3: DFS Maze
+Strategii:
+   1. Depth-First Search (DFS)
+   2. Iterative Deepening DFS
+   3. Backtracking
+
+Problema 4: Coloring
+Strategii:
+   1. Backtracking
+   2. Arc Consistency
+   3. Forward Checking
+
+Problema 5: N-Queens
+Strategii:
+   1. Forward Checking
+   2. Arc Consistency
+   3. Backtracking
+   4. Min-Conflicts
+
+Problema 6: Hanoi
+Strategii:
+   1. Recursive Search
+   2. Backtracking
+   3. Iterative Deepening
+
+Problema 7: 8-Puzzle
+Strategii:
+   1. A*
+   2. Greedy Best-First
+   3. Uniform Cost Search
+
+Problema 8: Job
+Strategii:
+   1. Backtracking
+   2. Forward Checking
+   3. Arc Consistency
+   4. Hill-Climbing
+   5. Min-Conflicts
+
+Problema 9: Knight's Tour
+Strategii:
+   1. Simulated Annealing
+   2. Backtracking
+
+Problema 10: Sudoku
+Strategii:
+   1. Backtracking
+   2. Constraint Propagation (Forward Checking)
+   3. Arc Consistency
+   4. MRV
+   5. Simulated Annealing (for approximate solutions)
+
+Problema 11: Knight's Tour
+Strategii:
+   1. Simulated Annealing
+   2. Backtracking
+
+Problema 12: Beam
+Strategii:
+   1. Beam Search
+   2. Greedy Best-First
+   3. Hill-Climbing
+
+Problema 13: Sudoku
+Strategii:
+   1. Backtracking
+   2. Constraint Propagation (Forward Checking)
+   3. Arc Consistency
+   4. MRV
+   5. Simulated Annealing (for approximate solutions)
+
+Problema 14: Coloring
+Strategii:
+   1. Backtracking
+   2. Arc Consistency
+   3. Forward Checking
+
+Problema 15: A*
+Strategii:
+   1. A* Search
+   2. Greedy Best-First
+   3. Uniform Cost Search
+

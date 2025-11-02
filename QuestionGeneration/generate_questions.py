@@ -1,134 +1,146 @@
-"""Generate question instances from templates in QTemplates.py.
-
-Usage examples:
-    python generate_questions.py --count 5
-    python generate_questions.py --count 3 --format json --out questions.json
-    python generate_questions.py --count 10 --problems "N-Queens,8-Puzzle" --seed 42
-
-The script finds `QTemplates.py` in the same directory and uses its `search_problems` dict.
-"""
-import argparse
-import json
-import csv
 import random
 import sys
 from pathlib import Path
 
-# Make sure the script can import QTemplates located in the same folder
+from evaluate_strategies import evaluate_problem
+
+# asigură că directorul curent este în path
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
 try:
     import QTemplates
-except Exception as e:
-    print("Failed to import QTemplates.py from the script directory:", e)
+except ImportError as e:
+    print("Nu s-a putut importa QTemplates.py:", e)
     raise
 
 search_problems = getattr(QTemplates, "search_problems", None)
 if search_problems is None:
-    raise RuntimeError("QTemplates.py does not define `search_problems`")
+    raise RuntimeError("QTemplates.py nu definește `search_problems`")
+
+def write_strategies_to_file(questions, filename="strategies.txt"):
+    """Scrie listele de strategii pentru fiecare problemă într-un fișier separat."""
+    with open(filename, "w", encoding="utf-8") as f:
+        for i, q in enumerate(questions, 1):
+            f.write(f"Problema {i}: {q['title']}\n")
+            ranking = q["answer"]["ranking"]
+            f.write("Strategii:\n")
+            for j, strategy in enumerate(ranking, 1):
+                f.write(f"   {j}. {strategy}\n")
+            f.write("\n")
+    print(f"\nListele de strategii au fost salvate în fișierul '{filename}'")
 
 
-def generate_one(name, entry):
-    """Generate one question dict for a given template entry."""
-    # entry['params'] is expected to be a callable returning a dict
+def generate_one(name, entry, lang="ro"):
     params_fn = entry.get("params")
     params = params_fn() if callable(params_fn) else {}
-    template = entry.get("template", "")
-    try:
-        text = template.format(**params)
-    except Exception:
-        # If formatting fails, fall back to the raw template and include params
-        text = template + "\n(Params: {})".format(params)
+
+    templates = entry.get("templates", {})
+    lang_templates = templates.get(lang) or templates.get("ro") or []
+    if not lang_templates:
+        text = f"[No template available for {name}]"
+    else:
+        text = random.choice(lang_templates)
+        try:
+            text = text.format(**params)
+        except Exception:
+            text += f"\n(Params: {params})"
+    name=entry.get("title")
+
+    if name=="N-Queens" or name=="Coloring" or name=="Knight's Tour":
+        results = evaluate_problem(entry, params)
+        best = results[0][0] if results else None
+        ranking = [r[0] for r in results]
+    else: 
+        results=entry.get("strategies")
+        best=results[0]
+        ranking=results
+
+
     return {
         "title": name,
         "question": text,
         "params": params,
-        "strategy": entry.get("strategy")
+        "answer": {
+            "best_strategy": best,
+            "ranking": ranking
+        }
     }
 
 
-def generate_questions(count=1, choices=None, seed=None):
-    """Generate `count` questions. If `choices` is a list of problem names, pick from them.
-    Otherwise use all available templates.
-    """
+def generate_questions(count=1, choices=None, seed=None, lang="ro"):
     if seed is not None:
         random.seed(seed)
 
     available = list(search_problems.items())
     if choices:
-        # filter by provided names (case-sensitive match)
         names = [s.strip() for s in ",".join(choices).split(",") if s.strip()]
         available = [(n, search_problems[n]) for n in names if n in search_problems]
         if not available:
             raise ValueError("None of the requested problem names were found in QTemplates.search_problems")
 
     results = []
-    for _ in range(count):
-        name, entry = random.choice(available)
-        results.append(generate_one(name, entry))
+
+    if count <= len(available):
+        selected = random.sample(available, count)
+        for name, entry in selected:
+            results.append(generate_one(name, entry, lang=lang))
+    else:
+        results.extend(generate_one(name, entry, lang=lang) for name, entry in random.sample(available, len(available)))
+        remaining = count - len(available)
+        for _ in range(remaining):
+            name, entry = random.choice(available)
+            results.append(generate_one(name, entry, lang=lang))
+
     return results
 
 
-def write_output(items, fmt="text", outpath=None):
-    if outpath:
-        outpath = Path(outpath)
-
-    if fmt == "json":
-        s = json.dumps(items, ensure_ascii=False, indent=2)
-        if outpath:
-            outpath.write_text(s, encoding="utf-8")
-            print(f"Wrote {len(items)} questions to {outpath}")
-        else:
-            print(s)
-    elif fmt == "csv":
-        # Flatten to rows: title, question, strategy, params(JSON)
-        if outpath:
-            with outpath.open("w", encoding="utf-8", newline="") as f:
-                writer = csv.writer(f)
-                writer.writerow(["title", "question", "strategy", "params"])
-                for it in items:
-                    writer.writerow([it["title"], it["question"], it.get("strategy"), json.dumps(it.get("params", {}), ensure_ascii=False)])
-            print(f"Wrote {len(items)} questions to {outpath}")
-        else:
-            # print CSV to stdout
-            writer = csv.writer(sys.stdout)
-            writer.writerow(["title", "question", "strategy", "params"])
-            for it in items:
-                writer.writerow([it["title"], it["question"], it.get("strategy"), json.dumps(it.get("params", {}), ensure_ascii=False)])
-    else:
-        # plain text
-        out_lines = []
-        for i, it in enumerate(items, 1):
-            out_lines.append(f"{i}. [{it['title']}] {it['question']}")
-            if it.get("strategy"):
-                out_lines.append(f"   Strategy: {it['strategy']}")
-            out_lines.append("")
-        out_text = "\n".join(out_lines)
-        if outpath:
-            outpath.write_text(out_text, encoding="utf-8")
-            print(f"Wrote {len(items)} questions to {outpath}")
-        else:
-            print(out_text)
-
-
-def main(argv=None):
-    p = argparse.ArgumentParser(description="Generate questions from QTemplates.search_problems")
-    p.add_argument("--count", "-c", type=int, default=5, help="How many questions to generate")
-    p.add_argument("--format", "-f", choices=["text", "json", "csv"], default="text", help="Output format")
-    p.add_argument("--out", "-o", help="Write output to file")
-    p.add_argument("--problems", "-p", help="Comma-separated list of problem names to draw from (exact names)")
-    p.add_argument("--seed", type=int, help="Random seed for reproducible generation")
-
-    args = p.parse_args(argv)
-
-    choices = None
-    if args.problems:
-        choices = [s.strip() for s in args.problems.split(",") if s.strip()]
-
-    items = generate_questions(count=args.count, choices=choices, seed=args.seed)
-    write_output(items, fmt=args.format, outpath=args.out)
+def write_questions_to_file(questions, filename="questions.txt"):
+    """Scrie întrebările într-un fișier text."""
+    with open(filename, "w", encoding="utf-8") as f:
+        for i, q in enumerate(questions, 1):
+            f.write(f"{i}. [{q['title']}] {q['question']}\n")
+            if q.get("strategy"):
+                f.write(f"   Strategie recomandată: {q['strategy']}\n")
+            f.write("\n")
+    print(f"\nÎntrebările au fost salvate în fișierul '{filename}'")
 
 
 if __name__ == "__main__":
-    main()
+    # Citește datele de la tastatură
+    try:
+        count = int(input("Introduceți numărul de întrebări de generat: "))
+    except ValueError:
+        count = 5
+        print("Valoare invalidă, se va folosi count = 5")
+
+    lang = input("Introduceți limba (ro/en) [implicit: ro]: ").strip().lower() or "ro"
+
+    problems_input = input("Introduceți problemele separate prin virgulă (sau Enter pentru toate): ").strip()
+    problems = [p.strip() for p in problems_input.split(",")] if problems_input else None
+
+    seed_input = input("Introduceți seed aleator (sau Enter pentru random): ").strip()
+    seed = int(seed_input) if seed_input.isdigit() else None
+
+    filename = input("Introduceți numele fișierului pentru salvare [implicit: questions.txt]: ").strip() or "questions.txt"
+
+    # Generează întrebările
+    questions = generate_questions(count=count, choices=problems, seed=seed, lang=lang)
+
+    # Afișează și scrie în fișier
+    for i, q in enumerate(questions, 1):
+        print(f"\n{i}. [{q['title']}] {q['question']}")
+        
+        # Arată strategia cea mai bună
+        if q.get("answer"):
+            best = q['answer']['best_strategy']
+            print(f"   Cea mai bună strategie: {best}")
+
+            # Arată ranking-ul complet după timpi
+            ranking = q['answer']['ranking']
+            print("   Strategii în ordinea celor mai buni timpi (pt N-Queens, Graph Coloring, Knight's Tour, aleator in rest):")
+            for rank, strategy in enumerate(ranking, 1):
+                print(f"      {rank}. {strategy}")
+
+    write_questions_to_file(questions, filename=filename)
+    write_strategies_to_file(questions, filename="strategies.txt")
