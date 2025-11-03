@@ -1,7 +1,6 @@
 import random
 import sys
 from pathlib import Path
-
 from evaluate_strategies import evaluate_problem
 
 # asigură că directorul curent este în path
@@ -17,6 +16,7 @@ except ImportError as e:
 search_problems = getattr(QTemplates, "search_problems", None)
 if search_problems is None:
     raise RuntimeError("QTemplates.py nu definește `search_problems`")
+
 
 def write_strategies_to_file(questions, filename="strategies.txt"):
     """Scrie listele de strategii pentru fiecare problemă într-un fișier separat."""
@@ -45,17 +45,17 @@ def generate_one(name, entry, lang="ro"):
             text = text.format(**params)
         except Exception:
             text += f"\n(Params: {params})"
-    name=entry.get("title")
 
-    if name=="N-Queens" or name=="Coloring" or name=="Knight's Tour":
+    name = entry.get("title")
+
+    if name in ["N-Queens", "Coloring", "Knight's Tour"]:
         results = evaluate_problem(entry, params)
         best = results[0][0] if results else None
         ranking = [r[0] for r in results]
-    else: 
-        results=entry.get("strategies")
-        best=results[0]
-        ranking=results
-
+    else:
+        results = entry.get("strategies")
+        best = results[0] if results else "N/A"
+        ranking = results or []
 
     return {
         "title": name,
@@ -106,6 +106,51 @@ def write_questions_to_file(questions, filename="questions.txt"):
     print(f"\nÎntrebările au fost salvate în fișierul '{filename}'")
 
 
+def ask_user_for_answers(questions, filename="raspunsuri.txt"):
+    answers = []
+    print("\n------------------")
+    print("   Scrie răspunsurile tale   ")
+    print("---------------------")
+
+    for i, q in enumerate(questions, 1):
+        print(f"\n{i}. [{q['title']}]")
+        print(q["question"])
+       # print(q["answer"])
+        user_answer = input("Răspunsul tău: ").strip()
+        score = 0
+
+        if q["answer"]["best_strategy"].lower() in user_answer.lower():
+            score = 100
+        else:
+            ranking = q["answer"]["ranking"]
+            n = len(ranking)
+
+            for idx, strategy in enumerate(ranking):
+                if strategy.lower() in user_answer.lower() and idx != 0:
+                    score = 100 - idx * (100 / n)
+                    break
+
+                if strategy.lower() in user_answer.lower() and idx == 0:
+                    score = 100
+                    break
+
+        score = str(score) + '%'
+        answers.append({
+            "title": q["title"],
+            "question": q["question"],
+            "user_answer": user_answer,
+            "score": score
+        })
+
+    with open(filename, "w", encoding="utf-8") as f:
+        for i, a in enumerate(answers, 1):
+            f.write(f"{i}. [{a['title']}] {a['question']}\n")
+            f.write(f"   Răspunsul tău: {a['user_answer']}\n\n")
+            f.write(f"   Scorul tau: {a['score']}\n")
+
+    print(f"\n Răspunsurile au fost salvate în fișierul '{filename}'.")
+
+
 if __name__ == "__main__":
     # Citește datele de la tastatură
     try:
@@ -122,25 +167,16 @@ if __name__ == "__main__":
     seed_input = input("Introduceți seed aleator (sau Enter pentru random): ").strip()
     seed = int(seed_input) if seed_input.isdigit() else None
 
-    filename = input("Introduceți numele fișierului pentru salvare [implicit: questions.txt]: ").strip() or "questions.txt"
+    filename = input(
+        "Introduceți numele fișierului pentru salvare [implicit: questions.txt]: ").strip() or "questions.txt"
 
     # Generează întrebările
     questions = generate_questions(count=count, choices=problems, seed=seed, lang=lang)
 
     # Afișează și scrie în fișier
-    for i, q in enumerate(questions, 1):
-        print(f"\n{i}. [{q['title']}] {q['question']}")
-        
-        # Arată strategia cea mai bună
-        if q.get("answer"):
-            best = q['answer']['best_strategy']
-            print(f"   Cea mai bună strategie: {best}")
-
-            # Arată ranking-ul complet după timpi
-            ranking = q['answer']['ranking']
-            print("   Strategii în ordinea celor mai buni timpi (pt N-Queens, Graph Coloring, Knight's Tour, aleator in rest):")
-            for rank, strategy in enumerate(ranking, 1):
-                print(f"      {rank}. {strategy}")
 
     write_questions_to_file(questions, filename=filename)
     write_strategies_to_file(questions, filename="strategies.txt")
+
+    # Utilizatorul răspunde la întrebări
+    ask_user_for_answers(questions)
