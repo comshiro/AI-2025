@@ -108,9 +108,9 @@ def write_questions_to_file(questions, filename="questions.txt"):
 
 def ask_user_for_answers(questions, filename="raspunsuri.txt"):
     answers = []
-    print("\n-----------------------------------")
+    print("\n------------------")
     print("   Scrie răspunsurile tale   ")
-    print("-------------------------------------")
+    print("---------------------")
 
     for i, q in enumerate(questions, 1):
         print(f"\n{i}. [{q['title']}]")
@@ -119,18 +119,18 @@ def ask_user_for_answers(questions, filename="raspunsuri.txt"):
         user_answer = input("Răspunsul tău: ").strip()
         score = 0
 
-        if q["answer"]["best_strategy"].lower() in user_answer.lower():
+        if q["answer"]["best_strategy"].lower() in user_answer.lower() or user_answer.lower() in q["answer"]["best_strategy"].lower():
             score = 100
         else:
             ranking = q["answer"]["ranking"]
             n = len(ranking)
 
             for idx, strategy in enumerate(ranking):
-                if strategy.lower() in user_answer.lower() and idx != 0:
+                if strategy.lower() in user_answer.lower() and idx != 0 or user_answer.lower() in strategy.lower():
                     score = 100 - idx * (100 / n)
                     break
 
-                if strategy.lower() in user_answer.lower() and idx == 0:
+                if strategy.lower() in user_answer.lower() and idx == 0 or user_answer.lower() in strategy.lower():
                     score = 100
                     break
 
