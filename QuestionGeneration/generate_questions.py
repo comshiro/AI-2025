@@ -108,9 +108,9 @@ def write_questions_to_file(questions, filename="questions.txt"):
 
 def ask_user_for_answers(questions, filename="raspunsuri.txt"):
     answers = []
-    print("\n------------------")
+    print("\n-----------------------------------")
     print("   Scrie răspunsurile tale   ")
-    print("---------------------")
+    print("-------------------------------------")
 
     for i, q in enumerate(questions, 1):
         print(f"\n{i}. [{q['title']}]")
@@ -134,7 +134,7 @@ def ask_user_for_answers(questions, filename="raspunsuri.txt"):
                     score = 100
                     break
 
-        score = str(score) + '%'
+        score = str(int (score)) + '%'
         answers.append({
             "title": q["title"],
             "question": q["question"],
@@ -145,8 +145,8 @@ def ask_user_for_answers(questions, filename="raspunsuri.txt"):
     with open(filename, "w", encoding="utf-8") as f:
         for i, a in enumerate(answers, 1):
             f.write(f"{i}. [{a['title']}] {a['question']}\n")
-            f.write(f"   Răspunsul tău: {a['user_answer']}\n\n")
-            f.write(f"   Scorul tau: {a['score']}\n")
+            f.write(f"   Răspunsul tău: {a['user_answer']}\n")
+            f.write(f"   Scorul tau: {a['score']}\n\n")
 
     print(f"\n Răspunsurile au fost salvate în fișierul '{filename}'.")
 
