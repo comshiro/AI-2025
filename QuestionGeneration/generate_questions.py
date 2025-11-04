@@ -115,7 +115,7 @@ def ask_user_for_answers(questions, filename="raspunsuri.txt"):
     for i, q in enumerate(questions, 1):
         print(f"\n{i}. [{q['title']}]")
         print(q["question"])
-       # print(q["answer"])
+        #print(q["answer"])
         user_answer = input("Răspunsul tău: ").strip()
         score = 0
 
@@ -135,6 +135,7 @@ def ask_user_for_answers(questions, filename="raspunsuri.txt"):
                     break
 
         score = str(int (score)) + '%'
+        print(f"   Scorul tau: {score}")
         answers.append({
             "title": q["title"],
             "question": q["question"],
@@ -180,3 +181,5 @@ if __name__ == "__main__":
 
     # Utilizatorul răspunde la întrebări
     ask_user_for_answers(questions)
+
+    input("\n Apasati \"Enter\" pentru a inchide aplicatia")

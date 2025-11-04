@@ -1,0 +1,18 @@
+Problema 1: Coloring
+Strategii:
+   1. Backtracking
+   2. Arc Consistency
+   3. Forward Checking
+
+Problema 2: DFS Maze
+Strategii:
+   1. Depth-First Search (DFS)
+   2. Iterative Deepening DFS
+   3. Backtracking
+
+Problema 3: Beam
+Strategii:
+   1. Beam Search
+   2. Greedy Best-First
+   3. Hill-Climbing
+

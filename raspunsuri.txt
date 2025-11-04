@@ -1,12 +1,22 @@
-1. [Hanoi] Există 3 tije metalice și 9 discuri de dimensiuni diferite stivuite pe prima tijă, de la cel mai mare la cel mai mic. Scopul este mutarea întregului turn pe a n-a tijă, respectând regulile: se mută un singur disc o dată și nu se poate așeza un disc mai mare peste unul mai mic. Care este strategia optimă pentru a planifica mutările astfel încât numărul total de pași să fie minim?
-   Răspunsul tău: Recursive Search
-
-   Scorul tau: 100%
-2. [DFS Maze] Un agent de salvare trebuie să găsească ieșirea dintr-un labirint cu 10 coridoare și 11 intersecții. El urmează întotdeauna cea mai adâncă cale înainte de a reveni. Cum se numește strategia potrivită pentru această abordare?
-   Răspunsul tău: backtracking
-
-   Scorul tau: 33.33333333333333%
-3. [N-Queens] Să se plaseze 8 regine pe o tablă de șah de dimensiune 8×8 astfel încât niciuna să nu se atace reciproc pe linie, coloană sau diagonală. Care ar fi cea mai potrivita strategie pentru a determina o solutie a acestei probleme?
-   Răspunsul tău: bfs
-
+1. [8-Puzzle] Un puzzle numeric 3×3 trebuie rearanjat din starea [8, 1, 5, 4, 7, 6, 2, 3, 0] în starea [1, 2, 3, 4, 5, 6, 7, 8, 0]. Care este cea mai eficientă strategie de căutare informată pentru a obține soluția?
+   Răspunsul tău: da
    Scorul tau: 0%
+
+2. [Sudoku] Rezolvă următorul puzzle Sudoku 9×9: completează grila astfel încât fiecare rând, coloană și subgrilă 3×3 să conțină toate numerele de la 1 la 9 fără repetări. Grila inițială este:
+0 5 0 0 2 6 0 0 4
+0 0 0 0 0 2 0 3 0
+6 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 7 0 0
+0 8 0 0 4 7 0 0 0
+9 0 0 0 0 0 0 5 0
+1 2 0 0 0 0 0 9 0
+4 4 0 0 8 0 3 2 0
+0 0 0 0 0 3 0 4 0
+Care este cea mai potrivită strategie de rezolvare?
+   Răspunsul tău: da
+   Scorul tau: 0%
+
+3. [Job] O fabrică are 4 mașini și 4 comenzi, fiecare cu un timp de procesare specific. Unele comenzi depind de altele (de exemplu, piesele trebuie prelucrate într-o ordine). Obiectivul este minimizarea timpului total de producție. Cum se poate aborda această problemă respectând toate constrângerile?
+   Răspunsul tău: da
+   Scorul tau: 0%
+
