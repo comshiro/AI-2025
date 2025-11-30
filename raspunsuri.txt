@@ -1,22 +1,79 @@
-1. [8-Puzzle] Un puzzle numeric 3×3 trebuie rearanjat din starea [8, 1, 5, 4, 7, 6, 2, 3, 0] în starea [1, 2, 3, 4, 5, 6, 7, 8, 0]. Care este cea mai eficientă strategie de căutare informată pentru a obține soluția?
-   Răspunsul tău: da
+1. [Hanoi] Există 3 tije metalice și 8 discuri de dimensiuni diferite stivuite pe prima tijă, de la cel mai mare la cel mai mic. Scopul este mutarea întregului turn pe a n-a tijă, respectând regulile: se mută un singur disc o dată și nu se poate așeza un disc mai mare peste unul mai mic. Care este strategia optimă pentru a planifica mutările astfel încât numărul total de pași să fie minim?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+2. [Coloring] Se dă un graf cu 7 noduri și 9 muchii, cu vecinătățile specificate în lista [(2, 5), (1, 5), (4, 2), (4, 0), (6, 1), (1, 0), (4, 6), (3, 0), (2, 1)]. Atribuie culori fiecărui nod astfel încât nodurile adiacente să aibă culori diferite, minimizând numărul total de culori utilizate. Ce strategii și euristici pot fi aplicate pentru a găsi o soluție?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+3. [Job] Un sistem de planificare trebuie să atribuie 7 sarcini pe 5 echipamente, ținând cont de durata fiecărei operații și de relațiile de dependență. Cum se poate optimiza ordonarea execuțiilor?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+4. [CSP] Având variabilele ['X1', 'X2', 'X3', 'X4', 'X5', 'X6'], domeniile {'X1': [1, 2, 3], 'X2': [1, 2, 3], 'X3': [1, 2, 3], 'X4': [1, 2, 3], 'X5': [1, 2, 3], 'X6': [1, 2, 3]}, constrângerile ['X5 < X6', 'X1 != X6', 'X1 < X4', 'X1 != X5', 'X2 < X4', 'X2 > X5', 'X3 != X5', 'X1 != X3'],
+și asignarea parțială {'X6': 3, 'X5': 2, 'X4': 1}, determinați asignarea variabilelor rămase folosind Backtracking cu optimizarea Forward Checking (FC).
+   Răspunsul tău: 
    Scorul tau: 0%
 
-2. [Sudoku] Rezolvă următorul puzzle Sudoku 9×9: completează grila astfel încât fiecare rând, coloană și subgrilă 3×3 să conțină toate numerele de la 1 la 9 fără repetări. Grila inițială este:
-0 5 0 0 2 6 0 0 4
-0 0 0 0 0 2 0 3 0
-6 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 7 0 0
-0 8 0 0 4 7 0 0 0
-9 0 0 0 0 0 0 5 0
-1 2 0 0 0 0 0 9 0
-4 4 0 0 8 0 3 2 0
-0 0 0 0 0 3 0 4 0
+5. [Knight's Tour] Un cal de șah trebuie să viziteze toate cele 5×5 pătrate ale tablei exact o dată, pornind din poziția (3, 1). Planifică traseul complet astfel încât calul să ajungă pe fiecare pătrat o singură dată. Cum se poate genera o astfel de secvență de mutări?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+6. [A*] Un serviciu de livrări planifică traseul unui curier între Timișoara și Galați pe o hartă cu 11 locații conectate. Costurile pot fi afectate de trafic și distanță. Cum se poate calcula ruta cea mai eficientă folosind o funcție euristică?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+7. [Hanoi] O macara automatizată trebuie să mute 8 containere de diferite dimensiuni între 8 zone de depozitare, fără a încălca regula de greutate (un container mai greu nu poate fi plasat peste unul mai ușor). Cum se poate planifica succesiunea mutărilor pentru a atinge scopul final în cel mai scurt timp posibil?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+8. [N-Queens] O companie trebuie să poziționeze 7 antene de comunicație pe o grilă 7×7 astfel încât să nu interfereze între ele 2 cate 2 pe linie, coloana sau diagonala. Fiecare poziție corespunde unui canal radio distinct. Care ar fi cea mai potrivita strategie pentru a determina o solutie a acestei probleme?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+9. [CSP] Având variabilele ['X1', 'X2', 'X3', 'X4'], domeniile {'X1': [1, 2], 'X2': [1, 2], 'X3': [1, 2], 'X4': [1, 2]}, constrângerile ['X2 < X3', 'X2 != X4', 'X1 > X3', 'X1 != X4', 'X1 > X2'],
+și asignarea parțială {'X4': 1}, determinați asignarea variabilelor rămase folosind Backtracking cu optimizarea Forward Checking (FC).
+   Răspunsul tău: 
+   Scorul tau: 0%
+
+10. [Knight's Tour] Un cal de șah trebuie să viziteze toate cele 5×5 pătrate ale tablei exact o dată, pornind din poziția (2, 0). Planifică traseul complet astfel încât calul să ajungă pe fiecare pătrat o singură dată. Cum se poate genera o astfel de secvență de mutări?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+11. [CSP] Având variabilele ['X1', 'X2', 'X3', 'X4', 'X5', 'X6'], domeniile {'X1': [1, 2, 3, 4, 5], 'X2': [1, 2, 3, 4, 5], 'X3': [1, 2, 3, 4, 5], 'X4': [1, 2, 3, 4, 5], 'X5': [1, 2, 3, 4, 5], 'X6': [1, 2, 3, 4, 5]}, constrângerile ['X2 < X5', 'X1 != X5', 'X5 != X6', 'X1 > X2', 'X3 > X5'],
+și asignarea parțială {'X5': 4, 'X1': 5}, determinați asignarea variabilelor rămase folosind Backtracking cu optimizarea AC-3 (Arc Consistency).
+   Răspunsul tău: 
+   Scorul tau: 0%
+
+12. [Sudoku] Rezolvă următorul puzzle Sudoku 9×9: completează grila astfel încât fiecare rând, coloană și subgrilă 3×3 să conțină toate numerele de la 1 la 9 fără repetări. Grila inițială este:
+8 0 0 2 7 0 0 0 0
+0 6 0 3 1 0 0 0 0
+0 0 0 3 0 0 3 0 0
+0 0 0 0 0 4 0 0 0
+9 0 9 9 5 0 0 3 0
+0 2 0 0 9 0 0 8 0
+7 5 0 0 0 0 7 6 0
+0 0 0 0 2 2 0 3 5
+0 3 0 1 0 0 0 0 3
 Care este cea mai potrivită strategie de rezolvare?
-   Răspunsul tău: da
-   Scorul tau: 0%
+   Răspunsul tău: 
+   Scorul tau: 100%
 
-3. [Job] O fabrică are 4 mașini și 4 comenzi, fiecare cu un timp de procesare specific. Unele comenzi depind de altele (de exemplu, piesele trebuie prelucrate într-o ordine). Obiectivul este minimizarea timpului total de producție. Cum se poate aborda această problemă respectând toate constrângerile?
-   Răspunsul tău: da
-   Scorul tau: 0%
+13. [DFS Maze] Un robot autonom pornește din colțul stânga-sus al unui labirint de dimensiune 8×7 și trebuie să ajungă la o ieșire amplasată aleatoriu. Robotul explorează mereu cea mai adâncă cale posibilă înainte de a reveni la un nod anterior. Cum ar trebui implementată strategia de căutare pentru a explora complet labirintul?
+   Răspunsul tău: 
+   Scorul tau: 100%
+
+14. [Sudoku] Se dă o grilă Sudoku parțial completată de dimensiune 9×9. Completează spațiile libere respectând regulile jocului: fiecare număr de la 1 la 9 trebuie să apară exact o dată pe rând, coloană și în fiecare bloc 3×3. Grila este:
+0 4 9 3 1 0 0 0 0
+0 0 6 0 0 0 0 0 0
+0 0 0 0 1 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 0 0 1 0 0 3
+0 0 1 9 0 0 5 0 6
+0 9 0 2 9 9 0 0 0
+0 5 0 0 0 0 0 0 0
+0 0 0 0 8 0 0 0 0
+Ce strategie de rezolvare consideri mai eficientă?
+   Răspunsul tău: 
+   Scorul tau: 100%
 
