@@ -23,7 +23,7 @@ def write_strategies_to_file(questions, filename="strategies.txt"):
     with open(filename, "w", encoding="utf-8") as f:
         for i, q in enumerate(questions, 1):
             f.write(f"Problema {i}: {q['title']}\n")
-            if q['title']!='CSP':
+            if q['title'] != 'CSP':
                 ranking = q["answer"]["ranking"]
                 f.write("Strategii:\n")
                 for j, strategy in enumerate(ranking, 1):
@@ -71,6 +71,7 @@ def generate_one(name, entry, lang="ro"):
         }
     }
 
+
 def generate_questions(count=1, choices=None, seed=None, lang="ro"):
     if seed is not None:
         random.seed(seed)
@@ -90,15 +91,15 @@ def generate_questions(count=1, choices=None, seed=None, lang="ro"):
             # Generare întrebări CSP
             num_vars = random.randint(4, 6)
             domain_size = random.randint(2, 5)
-            num_constraints = random.randint(num_vars-1, num_vars*(num_vars-1)//2)
+            num_constraints = random.randint(num_vars - 1, num_vars * (num_vars - 1) // 2)
             csp_question = generate_csp_question_with_solution(num_vars=num_vars,
-                                                 domain_size=domain_size,
-                                                 num_constraints=num_constraints,
-                                                 lang=lang)
+                                                               domain_size=domain_size,
+                                                               num_constraints=num_constraints,
+                                                               lang=lang)
             if csp_question is None:
                 continue
             # Împachetăm întrebarea CSP ca un dicționar compatibil cu generate_one
-           
+
             wrapped_csp = {
                 "title": f"CSP",
                 "question": csp_question["question"],
@@ -108,7 +109,7 @@ def generate_questions(count=1, choices=None, seed=None, lang="ro"):
                 "constraint_ops": csp_question["constraint_ops"],
                 "partial_assignment": csp_question["partial_assignment"],
                 "optimization": csp_question["optimization"],
-                "solution":csp_question["solution"]
+                "solution": csp_question["solution"]
             }
             results.append(wrapped_csp)
             print(csp_question["solution"])
@@ -122,15 +123,16 @@ def generate_questions(count=1, choices=None, seed=None, lang="ro"):
 
 import random
 
+
 def generate_csp_question(num_vars=4, domain_size=3, num_constraints=None, lang="ro"):
     # 1. Variabilele
-    variables = [f"X{i+1}" for i in range(num_vars)]
+    variables = [f"X{i + 1}" for i in range(num_vars)]
 
     # 2. Domeniile
-    domains = {v: list(range(1, domain_size+1)) for v in variables}
+    domains = {v: list(range(1, domain_size + 1)) for v in variables}
 
     # 3. Alegere perechi variabile pentru constrângeri
-    all_pairs = [(v1, v2) for i, v1 in enumerate(variables) for v2 in variables[i+1:]]
+    all_pairs = [(v1, v2) for i, v1 in enumerate(variables) for v2 in variables[i + 1:]]
     if num_constraints is None:
         num_constraints = random.randint(num_vars, len(all_pairs))
 
@@ -147,11 +149,14 @@ def generate_csp_question(num_vars=4, domain_size=3, num_constraints=None, lang=
 
         # definim funcția (evităm late binding prin f=func)
         if op == "!=":
-            def f(a, b): return a != b
+            def f(a, b):
+                return a != b
         elif op == "<":
-            def f(a, b): return a < b
+            def f(a, b):
+                return a < b
         else:
-            def f(a, b): return a > b
+            def f(a, b):
+                return a > b
 
         # stocăm ambele direcții pentru AC-3 și forward checking
         constraints[(v1, v2)] = f
@@ -221,9 +226,10 @@ def select_unassigned_variable_MRV(variables, domains, assignment):
     # selectează variabila cu cel mai mic domeniu (număr de valori posibile)
     return min(unassigned, key=lambda var: len(domains[var]))
 
+
 def forward_check(var, value, domains, constraints, assignment):
     pruned = []  # listă de valori eliminate (pentru backtrack)
-    
+
     for (v1, v2), func in constraints.items():
         if v1 == var and v2 not in assignment:
             for val2 in domains[v2][:]:
@@ -244,11 +250,14 @@ def forward_check(var, value, domains, constraints, assignment):
 
     return True, pruned
 
+
 def restore_domains(domains, pruned):
     for var, val in pruned:
         domains[var].append(val)
 
+
 from collections import deque
+
 
 def ac3(domains, constraints):
     queue = deque(constraints.keys())
@@ -275,6 +284,7 @@ def revise(domains, xi, xj, constraints):
             domains[xi].remove(x)
             revised = True
     return revised
+
 
 def backtrack_engine(variables, domains, constraints, assignment, optimization):
     if len(assignment) == len(variables):
@@ -309,6 +319,7 @@ def backtrack_engine(variables, domains, constraints, assignment, optimization):
 
     return None
 
+
 def solve_csp(variables, domains, constraints, partial_assignment, optimization):
     # copie separate pentru a nu distruge domeniile inițiale
     domains = {v: domains[v][:] for v in domains}
@@ -335,6 +346,7 @@ def is_consistent(var, value, assignment, constraints):
                 return False
     return True
 
+
 def backtracking(variables, domains, constraints, assignment=None):
     if assignment is None:
         assignment = {}
@@ -357,6 +369,7 @@ def backtracking(variables, domains, constraints, assignment=None):
 
     return None  # nu există soluție
 
+
 def generate_csp_question_with_solution(num_vars=4, domain_size=3, num_constraints=None, lang="ro"):
     for _ in range(15):  # maxim 15 încercări
         csp = generate_csp_question(num_vars, domain_size, num_constraints, lang)
@@ -377,6 +390,7 @@ def generate_csp_question_with_solution(num_vars=4, domain_size=3, num_constrain
     csp["solution"] = None
     return csp
 
+
 # # Exemplu de utilizare
 # csp_question = generate_csp_question()
 # print(csp_question["question"])
@@ -395,48 +409,93 @@ def write_questions_to_file(questions, filename="questions.txt"):
 
 def ask_user_for_answers(questions, filename="raspunsuri.txt"):
     answers = []
-    print("\n------------------")
-    print("   Scrie răspunsurile tale   ")
-    print("---------------------")
+    print("\n-------------------------------------------------------")
+    print("Scrieți mai jos răspunsurile la întrebări.")
+    print("---------------------------------------------------------")
 
     for i, q in enumerate(questions, 1):
         print(f"\n{i}. [{q['title']}]")
         print(q["question"])
-        #print(q["answer"])
-        user_answer = input("Răspunsul tău: ").strip()
+        user_answer = input("Răspunsul tău la întrebare: ").strip()
         score = 0
-        if(q["title"]!="CSP"):
-            if q["answer"]["best_strategy"].lower() in user_answer.lower() or user_answer.lower() in q["answer"]["best_strategy"].lower():
+
+        if q["title"] != "CSP":
+            correct_answer = q["answer"]["best_strategy"]
+
+            if correct_answer.lower() in user_answer.lower() or user_answer.lower() in correct_answer.lower():
                 score = 100
             else:
                 ranking = q["answer"]["ranking"]
                 n = len(ranking)
-
                 for idx, strategy in enumerate(ranking):
-                    if strategy.lower() in user_answer.lower() and idx != 0 or user_answer.lower() in strategy.lower():
+                    if strategy.lower() in user_answer.lower()  or user_answer.lower() in strategy.lower():
                         score = 100 - idx * (100 / n)
                         break
 
-                    if strategy.lower() in user_answer.lower() and idx == 0 or user_answer.lower() in strategy.lower():
-                        score = 100
-                        break
+        else:
+            if q["solution"] is None:
+                correct_answer = "nu există nicio soluție"
 
-        score = str(int (score)) + '%'
-        print(f"   Scorul tau: {score}")
+                if "nu" in user_answer.lower() or "nicio" in user_answer.lower():
+                    score = 100
+                else:
+                    score = 0
+
+            else:
+                correct_answer = q["solution"]
+
+                def parse_answer(s):
+                    s = s.replace("{", "").replace("}", "").strip()
+                    s = s.replace(" ", "")
+                    parts = s.split(",")
+                    result = {}
+                    for p in parts:
+                        if ":" in p:
+                            var, val = p.split(":")
+                        elif "=" in p:
+                            var, val = p.split("=")
+                        else:
+                            continue
+                        if val.isdigit():
+                            val = int(val)
+                        result[var.upper()] = val
+                    return result
+
+                user_dict = parse_answer(user_answer)
+                correct_dict = {k.upper(): v for k, v in correct_answer.items()}
+
+                total_vars = len(correct_dict)
+                correct_count = 0
+
+                for var, val in user_dict.items():
+                    if var in correct_dict and correct_dict[var] == val:
+                        correct_count += 1
+
+                score = int((correct_count / total_vars) * 100)
+
+                
+
+        score = str(int(score)) + '%'
+        print(f"Scorul tău obținut la întrebare: {score}")
+
         answers.append({
             "title": q["title"],
             "question": q["question"],
             "user_answer": user_answer,
+            "correct_answer": correct_answer,
             "score": score
         })
 
+ 
     with open(filename, "w", encoding="utf-8") as f:
         for i, a in enumerate(answers, 1):
             f.write(f"{i}. [{a['title']}] {a['question']}\n")
             f.write(f"   Răspunsul tău: {a['user_answer']}\n")
-            f.write(f"   Scorul tau: {a['score']}\n\n")
+            f.write(f"   Răspuns corect: {a['correct_answer']}\n")
+            f.write(f"   Scorul tău: {a['score']}\n\n")
 
-    print(f"\n Răspunsurile au fost salvate în fișierul '{filename}'.")
+    print(f"\nRăspunsurile au fost salvate în fișierul '{filename}'.")
+
 
 
 if __name__ == "__main__":
