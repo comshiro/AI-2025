@@ -1,16 +1,14 @@
-Problema 1: 8-Puzzle
+Problema 1: Hanoi
 Strategii:
-   1. A*
-   2. Greedy Best-First
-   3. Uniform Cost Search
+   1. Recursive Search
+   2. Backtracking
+   3. Iterative Deepening
 
-Problema 2: Sudoku
+Problema 2: Coloring
 Strategii:
    1. Backtracking
-   2. Constraint Propagation (Forward Checking)
-   3. Arc Consistency
-   4. MRV
-   5. Simulated Annealing (for approximate solutions)
+   2. Arc Consistency
+   3. Forward Checking
 
 Problema 3: Job
 Strategii:
@@ -19,4 +17,64 @@ Strategii:
    3. Arc Consistency
    4. Hill-Climbing
    5. Min-Conflicts
+
+Problema 4: CSP
+Asignare:
+ None
+Problema 5: Knight's Tour
+Strategii:
+   1. Simulated Annealing
+   2. Backtracking
+
+Problema 6: A*
+Strategii:
+   1. A* Search
+   2. Greedy Best-First
+   3. Uniform Cost Search
+
+Problema 7: Hanoi
+Strategii:
+   1. Recursive Search
+   2. Backtracking
+   3. Iterative Deepening
+
+Problema 8: N-Queens
+Strategii:
+   1. Min-Conflicts
+   2. Forward Checking
+   3. Arc Consistency
+   4. Backtracking
+
+Problema 9: CSP
+Asignare:
+ None
+Problema 10: Knight's Tour
+Strategii:
+   1. Simulated Annealing
+   2. Backtracking
+
+Problema 11: CSP
+Asignare:
+ {'X5': 4, 'X1': 5, 'X2': 1, 'X3': 5, 'X4': 1, 'X6': 1}
+Problema 12: Sudoku
+Strategii:
+   1. Backtracking
+   2. Constraint Propagation (Forward Checking)
+   3. Arc Consistency
+   4. MRV
+   5. Simulated Annealing (for approximate solutions)
+
+Problema 13: DFS Maze
+Strategii:
+   1. Depth-First Search (DFS)
+   2. Iterative Deepening DFS
+   3. Backtracking
+
+Problema 14: Sudoku
+Strategii:
+   1. Backtracking
+   2. Constraint Propagation (Forward Checking)
+   3. Arc Consistency
+   4. MRV
+   5. Simulated Annealing (for approximate solutions)
 

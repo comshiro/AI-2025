@@ -1,12 +1,15 @@
-1. [Coloring] Se dă un graf cu 7 noduri și 13 muchii, cu vecinătățile specificate în lista [(2, 3), (2, 5), (2, 1), (5, 4), (4, 2), (6, 5), (6, 2), (6, 3), (0, 2), (4, 1), (0, 1), (5, 1), (3, 4)]. Atribuie culori fiecărui nod astfel încât nodurile adiacente să aibă culori diferite, minimizând numărul total de culori utilizate. Ce strategii și euristici pot fi aplicate pentru a găsi o soluție?
-   Răspunsul tău: Backtracking
-   Scorul tau: 100%
+1. [MinMax] Pentru arborele de decizie dat, determinați valoarea nodului rădăcină folosind strategia MinMax cu tăieri Alpha-Beta. Precizați, de asemenea, numărul de frunze vizitate în procesul de evaluare.
+   Răspunsul tău: 
+   Răspuns corect: Valoare rădăcină: 8, Frunze vizitate: 8
+   Scorul tău: 0%
 
-2. [DFS Maze] Un agent de salvare trebuie să găsească ieșirea dintr-un labirint cu 7 coridoare și 8 intersecții. El urmează întotdeauna cea mai adâncă cale înainte de a reveni. Cum se numește strategia potrivită pentru această abordare?
-   Răspunsul tău: Backtracking
-   Scorul tau: 33%
+2. [MinMax] Se dă un arbore de joc în care nivelurile alternează între jucătorul MAX și jucătorul MIN, iar nodurile frunză au valori numerice asociate. Aplicând algoritmul MinMax cu optimizarea Alpha-Beta și respectând ordinea de parcurgere din arbore, care este valoarea finală din rădăcină și câte noduri frunză sunt efectiv evaluate?
+   Răspunsul tău: 
+   Răspuns corect: Valoare rădăcină: 6, Frunze vizitate: 6
+   Scorul tău: 0%
 
-3. [Beam] Un sistem automat de planificare trebuie să asigneze 11 ingineri la 6 sarcini, evaluând eficiența totală. Din motive de timp, algoritmul păstrează doar cele mai promițătoare 4 stări la fiecare pas. Care este strategia utilizată?
-   Răspunsul tău: da
-   Scorul tau: 0%
+3. [MinMax] Se dă un arbore de joc în care nivelurile alternează între jucătorul MAX și jucătorul MIN, iar nodurile frunză au valori numerice asociate. Aplicând algoritmul MinMax cu optimizarea Alpha-Beta și respectând ordinea de parcurgere din arbore, care este valoarea finală din rădăcină și câte noduri frunză sunt efectiv evaluate?
+   Răspunsul tău: 
+   Răspuns corect: Valoare rădăcină: 8, Frunze vizitate: 5
+   Scorul tău: 0%
 
