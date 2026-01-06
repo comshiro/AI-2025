@@ -1,0 +1,41 @@
+1. [Job] O fabrică are 2 mașini și 7 comenzi, fiecare cu un timp de procesare specific. Unele comenzi depind de altele (de exemplu, piesele trebuie prelucrate într-o ordine). Obiectivul este minimizarea timpului total de producție. Cum se poate aborda această problemă respectând toate constrângerile?
+
+2. [CSP] Având variabilele ['X1', 'X2', 'X3', 'X4', 'X5', 'X6'], domeniile {'X1': [1, 2, 3], 'X2': [1, 2, 3], 'X3': [1, 2, 3], 'X4': [1, 2, 3], 'X5': [1, 2, 3], 'X6': [1, 2, 3]}, constrângerile ['X1 > X6', 'X5 > X6', 'X3 > X4', 'X3 < X6', 'X3 > X5', 'X2 > X6', 'X4 != X6', 'X1 < X2', 'X1 < X3', 'X2 > X5', 'X2 > X4', 'X4 != X5', 'X1 > X5'],
+și asignarea parțială {'X6': 1}, determinați asignarea finală folosind Backtracking cu FC.
+
+3. [MinMax] Se dă un arbore de joc în care nivelurile alternează între jucătorul MAX și jucătorul MIN, iar nodurile frunză au valori numerice asociate. Aplicând algoritmul MinMax cu optimizarea Alpha-Beta și respectând ordinea de parcurgere din arbore, care este valoarea finală din rădăcină și câte noduri frunză sunt efectiv evaluate?
+
+   Structura arborelui: [[[9, 7], [10, 1]], [[7, 6], [1, 5]]]
+   Vizualizare:
+   ├─ MAX
+     ├─ MIN
+       ├─ MAX
+         └─ Frunză: 9
+         └─ Frunză: 7
+       ├─ MAX
+         └─ Frunză: 10
+         └─ Frunză: 1
+     ├─ MIN
+       ├─ MAX
+         └─ Frunză: 7
+         └─ Frunză: 6
+       ├─ MAX
+         └─ Frunză: 1
+         └─ Frunză: 5
+
+4. [8-Puzzle] Se dă un puzzle glisant 3×3 cu 8 piese numerotate și un spațiu liber. Configurația inițială este [1, 4, 2, 7, 5, 8, 3, 6, 0], iar scopul este să ajungi la [1, 2, 3, 4, 5, 6, 7, 8, 0]. Determină secvența optimă de mutări care minimizează numărul total de pași, folosind o funcție de cost f(n)=g(n)+h(n). Ce algoritm este cel mai potrivit?
+
+5. [CSP] Având variabilele ['X1', 'X2', 'X3', 'X4'], domeniile {'X1': [1, 2], 'X2': [1, 2], 'X3': [1, 2], 'X4': [1, 2]}, constrângerile ['X1 != X4', 'X1 < X3', 'X2 < X4', 'X2 < X3', 'X1 < X2'],
+și asignarea parțială {'X1': 1}, determinați asignarea finală folosind Backtracking cu MRV.
+
+6. [Job] O fabrică are 5 mașini și 4 comenzi, fiecare cu un timp de procesare specific. Unele comenzi depind de altele (de exemplu, piesele trebuie prelucrate într-o ordine). Obiectivul este minimizarea timpului total de producție. Cum se poate aborda această problemă respectând toate constrângerile?
+
+7. [Coloring] Se dă un graf cu 7 noduri și [[0, 1], [1, 2], [2, 5], [3, 4], [3, 6]] muchii, cu vecinătățile specificate în lista [[0, 4], [0, 5], [1, 2], [1, 4], [1, 5], [2, 4], [2, 6], [3, 4], [3, 5], [3, 6], [4, 6], [5, 6]]. Atribuie culori fiecărui nod astfel încât nodurile adiacente să aibă culori diferite, minimizând numărul total de culori utilizate. Ce strategii și euristici pot fi aplicate pentru a găsi o soluție?
+
+8. [Hanoi] Există 4 tije metalice și 5 discuri de dimensiuni diferite stivuite pe prima tijă, de la cel mai mare la cel mai mic. Scopul este mutarea întregului turn pe a n-a tijă, respectând regulile: se mută un singur disc o dată și nu se poate așeza un disc mai mare peste unul mai mic. Care este strategia optimă pentru a planifica mutările astfel încât numărul total de pași să fie minim?
+
+9. [CSP] Având variabilele ['X1', 'X2', 'X3', 'X4'], domeniile {'X1': [1, 2, 3], 'X2': [1, 2, 3], 'X3': [1, 2, 3], 'X4': [1, 2, 3]}, constrângerile ['X1 != X3', 'X1 != X4', 'X2 < X3', 'X2 != X4', 'X3 < X4', 'X1 < X2'],
+și asignarea parțială {'X3': 2}, determinați asignarea finală folosind Backtracking cu MRV.
+
+10. [Hanoi] Există 3 tije metalice și 6 discuri de dimensiuni diferite stivuite pe prima tijă, de la cel mai mare la cel mai mic. Scopul este mutarea întregului turn pe a n-a tijă, respectând regulile: se mută un singur disc o dată și nu se poate așeza un disc mai mare peste unul mai mic. Care este strategia optimă pentru a planifica mutările astfel încât numărul total de pași să fie minim?
+
