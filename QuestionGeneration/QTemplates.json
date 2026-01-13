@@ -214,5 +214,32 @@
       "types": ["CSP"],
       "alias_for": ["N-Queens", "Job Scheduling", "Graph Coloring", "Sudoku"]
     }
+  },
+
+  "search_problems": {
+    "MinMax Alpha-Beta": {
+      "title": "MinMax",
+      "category": "game",
+      "templates": {
+        "ro": [
+          "Se dă un arbore de joc în care nivelurile alternează între jucătorul MAX și jucătorul MIN, iar nodurile frunză au valori numerice asociate. Aplicând algoritmul MinMax cu optimizarea Alpha-Beta și respectând ordinea de parcurgere din arbore, care este valoarea finală din rădăcină și câte noduri frunză sunt efectiv evaluate?",
+          "Pentru arborele de decizie dat, determinați valoarea nodului rădăcină folosind strategia MinMax cu tăieri Alpha-Beta. Precizați, de asemenea, numărul de frunze vizitate în procesul de evaluare."
+        ],
+        "en": [
+          "Given a game tree where levels alternate between MAX and MIN players and leaf nodes have assigned utility values, apply the MinMax algorithm with Alpha-Beta pruning. What is the final value at the root and how many leaf nodes are evaluated?",
+          "For the given decision tree, determine the root value using MinMax with Alpha-Beta pruning and specify the number of visited leaf nodes."
+        ]
+      },
+      "param_types": {
+        "tree": {
+          "type": "custom",
+          "function": "minmax_tree"
+        }
+      },
+      "strategies": ["MinMax", "Alpha-Beta Pruning"],
+      "types": ["game", "adversarial-search", "optimization"]
+    }
   }
 }
+  
+

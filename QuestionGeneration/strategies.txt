@@ -1,18 +1,59 @@
-Problema 1: Coloring
+Problema 1: Job
+Strategii:
+   1. Backtracking
+   2. Forward Checking
+   3. Arc Consistency
+   4. Hill-Climbing
+   5. Min-Conflicts
+
+Problema 2: CSP
+Asignare:
+ None
+
+Problema 3: MinMax
+Rezultat MinMax Alpha-Beta:
+   Valoare în rădăcină: 9
+   Frunze vizitate: 5
+   Total frunze: 8
+   Frunze tăiate (pruning): 3
+
+Problema 4: 8-Puzzle
+Strategii:
+   1. A*
+   2. Greedy Best-First
+   3. Uniform Cost Search
+
+Problema 5: CSP
+Asignare:
+ None
+
+Problema 6: Job
+Strategii:
+   1. Backtracking
+   2. Forward Checking
+   3. Arc Consistency
+   4. Hill-Climbing
+   5. Min-Conflicts
+
+Problema 7: Coloring
 Strategii:
    1. Backtracking
    2. Arc Consistency
    3. Forward Checking
 
-Problema 2: DFS Maze
+Problema 8: Hanoi
 Strategii:
-   1. Depth-First Search (DFS)
-   2. Iterative Deepening DFS
-   3. Backtracking
+   1. Recursive Search
+   2. Backtracking
+   3. Iterative Deepening
 
-Problema 3: Beam
+Problema 9: CSP
+Asignare:
+ None
+
+Problema 10: Hanoi
 Strategii:
-   1. Beam Search
-   2. Greedy Best-First
-   3. Hill-Climbing
+   1. Recursive Search
+   2. Backtracking
+   3. Iterative Deepening
 
