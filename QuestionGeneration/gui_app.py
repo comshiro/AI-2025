@@ -866,6 +866,8 @@ Exemple de întrebări acceptate:
 • "Găsește calea de la (0,0) la (5,5) într-un grid 10x10 cu A*"
 • "Rezolvă sudoku 4x4: 0 2 0 0, 0 0 0 3, 4 0 0 0, 0 0 1 0"
 • "Aloca 5 joburi pe 3 mașini cu hill climbing"
+• "Aplică MinMax cu alpha-beta pe arborele [[[9,7],[10,1]],[[7,6],[1,5]]]"
+• "Există Nash equilibrium pentru joc 3x3?"
 """
         
         info_label = tk.Label(instruction, text=info_text, justify="left", font=("Arial", 9))
@@ -1008,11 +1010,40 @@ Exemple de întrebări acceptate:
             self.parser_output.insert(tk.END, f"📊 Parametri: Grid={grid_size}×{grid_size}, Start={start_str}, Goal={goal_str}, Algoritm={algorithm}\n\n")
             self._solve_pathfinding_internal(grid_size, start_str, goal_str, algorithm)
         
+        # MinMax Alpha-Beta
+        elif any(keyword in question for keyword in ["minmax", "minimax", "alpha", "beta", "arbore", "tree", "joc", "game"]):
+            problem_type = "MinMax"
+            
+            # Extrage arborele din text
+            tree = self._extract_minmax_tree(question)
+            
+            self.parser_output.insert(tk.END, f"🔍 Detectat: MinMax Alpha-Beta\n")
+            self.parser_output.insert(tk.END, f"📊 Arbore: {tree}\n\n")
+            self._solve_minmax_internal(tree)
+        
+        # Nash Equilibrium
+        elif any(keyword in question for keyword in ["nash", "echilibru", "equilibrium", "joc", "game", "matrice", "payoff"]):
+            problem_type = "Nash"
+            
+            # Extrage dimensiunile matricei
+            numbers = re.findall(r'\d+', question)
+            rows = int(numbers[0]) if len(numbers) > 0 else 3
+            cols = int(numbers[1]) if len(numbers) > 1 else 3
+            
+            # Extrage matricea dacă e prezentă
+            game_matrix = self._extract_game_matrix(question, rows, cols)
+            
+            self.parser_output.insert(tk.END, f"🔍 Detectat: Nash Equilibrium\n")
+            self.parser_output.insert(tk.END, f"📊 Parametri: Joc {rows}×{cols}\n\n")
+            self._solve_nash_internal(game_matrix, rows, cols)
+        
         else:
             self.parser_output.insert(tk.END, "❌ Nu am putut detecta tipul de problemă!\n\n")
             self.parser_output.insert(tk.END, "Încearcă să folosești cuvinte cheie precum:\n")
             self.parser_output.insert(tk.END, "  • 'regine' sau 'queens' pentru N-Queens\n")
             self.parser_output.insert(tk.END, "  • 'colorare' sau 'graf' pentru Graph Coloring\n")
+            self.parser_output.insert(tk.END, "  • 'minmax' sau 'alpha-beta' pentru MinMax\n")
+            self.parser_output.insert(tk.END, "  • 'nash' sau 'echilibru' pentru Nash Equilibrium\n")
             self.parser_output.insert(tk.END, "  • 'sudoku' pentru Sudoku\n")
             self.parser_output.insert(tk.END, "  • 'joburi' sau 'mașini' pentru Job Scheduling\n")
             self.parser_output.insert(tk.END, "  • 'cale' sau 'path' sau 'A*' pentru Pathfinding\n")
@@ -1066,6 +1097,50 @@ Exemple de întrebări acceptate:
         # Default grid
         return "0 2 0 0\n0 0 0 3\n4 0 0 0\n0 0 1 0"
     
+    def _extract_minmax_tree(self, text):
+        """Extrage arbore MinMax din text"""
+        # Caută liste imbricate: [[1,2],[3,4]] sau [[[1,2],[3,4]],[[5,6],[7,8]]]
+        import ast
+        
+        # Găsește pattern-uri de liste
+        list_pattern = r'\[[\[\],\d\s]+\]'
+        matches = re.findall(list_pattern, text)
+        
+        for match in matches:
+            try:
+                tree = ast.literal_eval(match)
+                if isinstance(tree, list):
+                    return tree
+            except:
+                continue
+        
+        # Default tree (arbore simplu 2 nivele)
+        return [[[9, 7], [10, 1]], [[7, 6], [1, 5]]]
+    
+    def _extract_game_matrix(self, text, rows, cols):
+        """Extrage matrice de joc pentru Nash"""
+        # Caută perechi de numere (u1,u2)
+        pairs = re.findall(r'\((-?\d+)\s*,\s*(-?\d+)\)', text)
+        
+        if len(pairs) >= rows * cols:
+            matrix = []
+            idx = 0
+            for r in range(rows):
+                row = []
+                for c in range(cols):
+                    u1, u2 = int(pairs[idx][0]), int(pairs[idx][1])
+                    row.append((u1, u2))
+                    idx += 1
+                matrix.append(row)
+            return matrix
+        
+        # Generează matrice random
+        import random
+        return [
+            [(random.randint(-5, 5), random.randint(-5, 5)) for _ in range(cols)]
+            for _ in range(rows)
+        ]
+    
     # Wrapper methods care folosesc codul existent
     def _solve_n_queens_internal(self, n, algorithm):
         """Wrapper pentru solve_n_queens care scrie în parser_output"""
@@ -1101,6 +1176,104 @@ Exemple de întrebări acceptate:
         self.solver_output = self.parser_output
         self.solve_pathfinding(grid_size, start_str, goal_str, algorithm)
         self.solver_output = original_output
+    
+    def _solve_minmax_internal(self, tree):
+        """Rezolvă MinMax Alpha-Beta"""
+        from QTemplates import QTemplates
+        
+        self.parser_output.insert(tk.END, "📋 Problemă: MinMax cu Alpha-Beta Pruning\n\n")
+        
+        # Vizualizare arbore
+        def visualize_tree(node, indent=0, node_type="MAX"):
+            lines = []
+            prefix = "  " * indent
+            
+            if isinstance(node, int):
+                lines.append(f"{prefix}└─ Frunză: {node}")
+            elif isinstance(node, list):
+                lines.append(f"{prefix}├─ {node_type}")
+                next_type = "MIN" if node_type == "MAX" else "MAX"
+                for child in node:
+                    lines.extend(visualize_tree(child, indent + 1, next_type))
+            
+            return lines
+        
+        tree_viz = visualize_tree(tree)
+        self.parser_output.insert(tk.END, "Structura arborelui:\n")
+        for line in tree_viz:
+            self.parser_output.insert(tk.END, line + "\n")
+        
+        self.parser_output.insert(tk.END, "\n")
+        
+        # Calculează MinMax
+        qt = QTemplates('QTemplates.json')
+        result = qt.solve_minmax_alpha_beta({"tree": tree})
+        
+        root_value = result["root_value"]
+        leaf_count = result["leaf_count"]
+        
+        # Calculează total frunze
+        def count_leaves(node):
+            if isinstance(node, int):
+                return 1
+            elif isinstance(node, list):
+                return sum(count_leaves(child) for child in node)
+            return 0
+        
+        total_leaves = count_leaves(tree)
+        
+        self.parser_output.insert(tk.END, "✅ REZULTAT:\n\n")
+        self.parser_output.insert(tk.END, f"📊 Valoare în rădăcină: {root_value}\n")
+        self.parser_output.insert(tk.END, f"🍃 Frunze vizitate: {leaf_count}\n")
+        self.parser_output.insert(tk.END, f"🌳 Total frunze: {total_leaves}\n")
+        self.parser_output.insert(tk.END, f"✂️  Frunze tăiate (pruning): {total_leaves - leaf_count}\n")
+    
+    def _solve_nash_internal(self, game_matrix, rows, cols):
+        """Rezolvă Nash Equilibrium"""
+        self.parser_output.insert(tk.END, "📋 Problemă: Nash Equilibrium (Joc în formă normală)\n\n")
+        
+        # Afișează matricea
+        self.parser_output.insert(tk.END, "Matricea jocului (Player 1 = rânduri, Player 2 = coloane):\n")
+        self.parser_output.insert(tk.END, "     ")
+        for j in range(cols):
+            self.parser_output.insert(tk.END, f"  Col {j}  ")
+        self.parser_output.insert(tk.END, "\n")
+        
+        for i in range(rows):
+            self.parser_output.insert(tk.END, f"Row {i}: ")
+            for j in range(cols):
+                u1, u2 = game_matrix[i][j]
+                self.parser_output.insert(tk.END, f"({u1:2},{u2:2})  ")
+            self.parser_output.insert(tk.END, "\n")
+        
+        self.parser_output.insert(tk.END, "\n")
+        
+        # Găsește echilibre Nash pure
+        def find_pure_nash(game):
+            equilibria = []
+            
+            # Calculează best responses
+            best_u1 = [max(game[i][j][0] for i in range(rows)) for j in range(cols)]
+            best_u2 = [max(game[i][j][1] for j in range(cols)) for i in range(rows)]
+            
+            for i in range(rows):
+                for j in range(cols):
+                    u1, u2 = game[i][j]
+                    if u1 == best_u1[j] and u2 == best_u2[i]:
+                        equilibria.append((i, j))
+            
+            return equilibria
+        
+        equilibria = find_pure_nash(game_matrix)
+        
+        if equilibria:
+            self.parser_output.insert(tk.END, "✅ DA - Există echilibru Nash pur!\n\n")
+            self.parser_output.insert(tk.END, f"Echilibre Nash găsite: {len(equilibria)}\n\n")
+            for i, j in equilibria:
+                payoff = game_matrix[i][j]
+                self.parser_output.insert(tk.END, f"  • Poziția ({i}, {j}) → Payoff {payoff}\n")
+        else:
+            self.parser_output.insert(tk.END, "❌ NU - Nu există echilibru Nash pur în acest joc.\n")
 
 
 if __name__ == "__main__":
