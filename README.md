@@ -16,6 +16,9 @@ Generator automat de întrebări pentru examenele de Inteligență Artificială,
 - Verificare răspunsuri în timp real
 - Afișare scoruri și feedback instantaneu
 
+![Interfata generare test](image.png)
+![Interfata introducere intrebare user](image-1.png)
+
 ### 📝 Mod Consola (CLI)
 - Generare batch de întrebări
 - Export în fișiere text
@@ -251,10 +254,9 @@ folosind Backtracking cu Forward Checking.
 **Răspuns:**
 `{X1: 1, X2: 2, X3: 3, X4: 4}`
 
-## 🤝 Contribuții
 
-Contribuțiile sunt binevenite! Pentru a adăuga noi tipuri de probleme:
-
-1. Adaugă definiția în `QTemplates.json`
-2. Implementează funcția de generare parametri în `QTemplates.py`
-3. Actualizează logica de scoring în `generate_questions.py` și `gui_app.py`
+# Contributie membrii echipa
+Gheonea: ontologie/templates pentru search, generare intrebare CSP, integrare Nash + evaluare, integrare euristici + evaluare, tab de parsare si rezolvare intrebare introdusa
+Matcovici: generare intrebare + implementarea algoritmilor pentru search, generare intrebare CSP + algoritmii, generare intrebare + raspuns Nash, generare intrebare + raspuns euristici
+Stoleriu: evaluare raspuns search,evaluare raspuns CSP, generare intrebare + raspuns si evaluare MinMax, GUI
+Tugui:evaluare raspuns search, evaluare raspuns CSP, generare intrebare + raspuns si evaluare MinMax, GUI
