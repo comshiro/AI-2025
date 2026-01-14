@@ -861,6 +861,8 @@ class AIQuestionsGUI(tk.Tk):
         info_text = """Scrie o întrebare în text liber și aplicația va încerca să o rezolve automat.
 
 Exemple de întrebări acceptate:
+• "Verifică dacă euristica este admisibilă"
+• "Testează consistența euristicii"
 • "Rezolvă N-Queens cu 8 regine folosind backtracking"
 • "Colorează un graf cu 6 noduri și muchiile 0-1,1-2,2-3,3-4,4-5,5-0"
 • "Găsește calea de la (0,0) la (5,5) într-un grid 10x10 cu A*"
@@ -921,8 +923,22 @@ Exemple de întrebări acceptate:
         problem_type = None
         algorithm = "Backtracking"  # default
         
+        # Heuristics (admisibilitate/consistență) - verificăm PRIMUL pentru că folosește "graf"
+        if any(keyword in question for keyword in ["euristic", "heuristic", "admisibil", "admissible", "consisten", "monoton"]):
+            problem_type = "Heuristics"
+            
+            # Detectează tipul de verificare
+            if "admisibil" in question or "admissible" in question:
+                check_type = "admissible"
+            else:
+                check_type = "consistent"
+            
+            self.parser_output.insert(tk.END, f"🔍 Detectat: Verificare Euristică\n")
+            self.parser_output.insert(tk.END, f"📊 Tip: {'Admisibilitate' if check_type == 'admissible' else 'Consistență'}\n\n")
+            self._solve_heuristics_internal(check_type)
+        
         # N-Queens
-        if any(keyword in question for keyword in ["queen", "regine", "regină", "n-queens"]):
+        elif any(keyword in question for keyword in ["queen", "regine", "regină", "n-queens"]):
             problem_type = "N-Queens"
             n = self._extract_number(question, default=8)
             
@@ -1040,6 +1056,7 @@ Exemple de întrebări acceptate:
         else:
             self.parser_output.insert(tk.END, "❌ Nu am putut detecta tipul de problemă!\n\n")
             self.parser_output.insert(tk.END, "Încearcă să folosești cuvinte cheie precum:\n")
+            self.parser_output.insert(tk.END, "  • 'euristică' sau 'admisibilă' pentru Verificare Euristică\n")
             self.parser_output.insert(tk.END, "  • 'regine' sau 'queens' pentru N-Queens\n")
             self.parser_output.insert(tk.END, "  • 'colorare' sau 'graf' pentru Graph Coloring\n")
             self.parser_output.insert(tk.END, "  • 'minmax' sau 'alpha-beta' pentru MinMax\n")
@@ -1300,6 +1317,102 @@ Exemple de întrebări acceptate:
                 self.parser_output.insert(tk.END, f"  • Poziția ({i}, {j}) → Payoff {payoff}\n")
         else:
             self.parser_output.insert(tk.END, "❌ NU - Nu există echilibru Nash pur în acest joc.\n")
+    
+    def _solve_heuristics_internal(self, check_type):
+        """Rezolvă verificare euristică (admisibilitate/consistență)"""
+        from new_question import HeuristicQuestionGenerator
+        
+        self.parser_output.insert(tk.END, "📋 Problemă: Verificare Euristică\n")
+        self.parser_output.insert(tk.END, f"🎯 Tip verificare: {'Admisibilitate' if check_type == 'admissible' else 'Consistență (Monotonie)'}\n\n")
+        
+        # Generează un graf și euristică
+        gen = HeuristicQuestionGenerator()
+        
+        # Forțează tipul de euristică dorit
+        if check_type == "admissible":
+            graph_data = gen.generate_graph(force_admissible=True, force_consistent=False)
+        else:
+            graph_data = gen.generate_graph(force_admissible=True, force_consistent=True)
+        
+        nodes = graph_data['nodes']
+        edges = graph_data['edges']
+        heuristic = graph_data['heuristic']
+        goal = graph_data['goal_node']
+        real_costs = graph_data['real_costs']
+        
+        # Afișează graful
+        self.parser_output.insert(tk.END, f"Graf generat cu {len(nodes)} noduri: {', '.join(nodes)}\n")
+        self.parser_output.insert(tk.END, f"Nod scop: {goal}\n\n")
+        
+        self.parser_output.insert(tk.END, "Muchii (cu costurile asociate):\n")
+        for edge in edges:
+            self.parser_output.insert(tk.END, f"  {edge['from']} → {edge['to']}: cost = {edge['cost']}\n")
+        
+        self.parser_output.insert(tk.END, f"\nEuristică h(n):\n")
+        for node in nodes:
+            self.parser_output.insert(tk.END, f"  h({node}) = {heuristic[node]}\n")
+        
+        self.parser_output.insert(tk.END, f"\nCosturi reale h*(n) (calculate cu Dijkstra):\n")
+        for node in nodes:
+            cost = real_costs.get(node, float('inf'))
+            cost_str = str(cost) if cost != float('inf') else "∞"
+            self.parser_output.insert(tk.END, f"  h*({node}) = {cost_str}\n")
+        
+        self.parser_output.insert(tk.END, "\n" + "=" * 60 + "\n\n")
+        
+        # Verifică admisibilitatea
+        if check_type == "admissible":
+            is_admissible = gen.check_admissibility(graph_data)
+            
+            self.parser_output.insert(tk.END, "🔍 VERIFICARE ADMISIBILITATE:\n")
+            self.parser_output.insert(tk.END, "Condiție: h(n) ≤ h*(n) pentru toate nodurile\n\n")
+            
+            all_valid = True
+            for node in nodes:
+                h_val = heuristic[node]
+                h_star = real_costs.get(node, float('inf'))
+                is_valid = h_val <= h_star if h_star != float('inf') else True
+                
+                status = "✓" if is_valid else "✗"
+                self.parser_output.insert(tk.END, f"  {status} {node}: h({node})={h_val} {'≤' if is_valid else '>'} h*({node})={h_star}\n")
+                
+                if not is_valid:
+                    all_valid = False
+            
+            self.parser_output.insert(tk.END, f"\n{'✅ DA' if is_admissible else '❌ NU'} - Euristica {'ESTE' if is_admissible else 'NU ESTE'} admisibilă.\n")
+        
+        # Verifică consistența
+        else:
+            is_consistent = gen.check_consistency(graph_data)
+            
+            self.parser_output.insert(tk.END, "🔍 VERIFICARE CONSISTENȚĂ (MONOTONIE):\n")
+            self.parser_output.insert(tk.END, "Condiție: h(n) ≤ cost(n,n') + h(n') pentru toate muchiile\n\n")
+            
+            all_valid = True
+            for edge in edges:
+                n1 = edge['from']
+                n2 = edge['to']
+                cost = edge['cost']
+                h1 = heuristic[n1]
+                h2 = heuristic[n2]
+                
+                is_valid = h1 <= cost + h2
+                status = "✓" if is_valid else "✗"
+                
+                self.parser_output.insert(tk.END, f"  {status} {n1}→{n2}: h({n1})={h1} {'≤' if is_valid else '>'} {cost}+{h2}={cost+h2}\n")
+                
+                if not is_valid:
+                    all_valid = False
+                
+                # Verifică și în sens invers
+                is_valid_reverse = h2 <= cost + h1
+                status_reverse = "✓" if is_valid_reverse else "✗"
+                self.parser_output.insert(tk.END, f"  {status_reverse} {n2}→{n1}: h({n2})={h2} {'≤' if is_valid_reverse else '>'} {cost}+{h1}={cost+h1}\n")
+                
+                if not is_valid_reverse:
+                    all_valid = False
+            
+            self.parser_output.insert(tk.END, f"\n{'✅ DA' if is_consistent else '❌ NU'} - Euristica {'ESTE' if is_consistent else 'NU ESTE'} consistentă.\n")
 
 
 if __name__ == "__main__":
