@@ -1010,19 +1010,8 @@ Exemple de întrebări acceptate:
             self.parser_output.insert(tk.END, f"📊 Parametri: Grid={grid_size}×{grid_size}, Start={start_str}, Goal={goal_str}, Algoritm={algorithm}\n\n")
             self._solve_pathfinding_internal(grid_size, start_str, goal_str, algorithm)
         
-        # MinMax Alpha-Beta
-        elif any(keyword in question for keyword in ["minmax", "minimax", "alpha", "beta", "arbore", "tree", "joc", "game"]):
-            problem_type = "MinMax"
-            
-            # Extrage arborele din text
-            tree = self._extract_minmax_tree(question)
-            
-            self.parser_output.insert(tk.END, f"🔍 Detectat: MinMax Alpha-Beta\n")
-            self.parser_output.insert(tk.END, f"📊 Arbore: {tree}\n\n")
-            self._solve_minmax_internal(tree)
-        
-        # Nash Equilibrium
-        elif any(keyword in question for keyword in ["nash", "echilibru", "equilibrium", "joc", "game", "matrice", "payoff"]):
+        # Nash Equilibrium (verificăm ÎNAINTE de MinMax pentru că ambele folosesc "joc"/"game")
+        elif any(keyword in question for keyword in ["nash", "echilibru", "equilibrium", "matrice", "payoff", "formă normală", "normal form"]):
             problem_type = "Nash"
             
             # Extrage dimensiunile matricei
@@ -1036,6 +1025,17 @@ Exemple de întrebări acceptate:
             self.parser_output.insert(tk.END, f"🔍 Detectat: Nash Equilibrium\n")
             self.parser_output.insert(tk.END, f"📊 Parametri: Joc {rows}×{cols}\n\n")
             self._solve_nash_internal(game_matrix, rows, cols)
+        
+        # MinMax Alpha-Beta
+        elif any(keyword in question for keyword in ["minmax", "minimax", "alpha", "beta", "arbore", "tree"]):
+            problem_type = "MinMax"
+            
+            # Extrage arborele din text
+            tree = self._extract_minmax_tree(question)
+            
+            self.parser_output.insert(tk.END, f"🔍 Detectat: MinMax Alpha-Beta\n")
+            self.parser_output.insert(tk.END, f"📊 Arbore: {tree}\n\n")
+            self._solve_minmax_internal(tree)
         
         else:
             self.parser_output.insert(tk.END, "❌ Nu am putut detecta tipul de problemă!\n\n")
@@ -1128,11 +1128,37 @@ Exemple de întrebări acceptate:
             for r in range(rows):
                 row = []
                 for c in range(cols):
-                    u1, u2 = int(pairs[idx][0]), int(pairs[idx][1])
-                    row.append((u1, u2))
-                    idx += 1
+                    if idx < len(pairs):
+                        u1, u2 = int(pairs[idx][0]), int(pairs[idx][1])
+                        row.append((u1, u2))
+                        idx += 1
                 matrix.append(row)
             return matrix
+        
+        # Încearcă să detecteze automat dimensiunile din perechi
+        if pairs:
+            # Numără câte perechi sunt per rând (caută pattern-uri "row X:")
+            row_markers = re.findall(r'row\s+\d+', text.lower())
+            col_markers = re.findall(r'col\s+\d+', text.lower())
+            
+            if row_markers and col_markers:
+                detected_rows = len(row_markers)
+                detected_cols = len(col_markers)
+                
+                if len(pairs) == detected_rows * detected_cols:
+                    rows = detected_rows
+                    cols = detected_cols
+                    
+                    matrix = []
+                    idx = 0
+                    for r in range(rows):
+                        row = []
+                        for c in range(cols):
+                            u1, u2 = int(pairs[idx][0]), int(pairs[idx][1])
+                            row.append((u1, u2))
+                            idx += 1
+                        matrix.append(row)
+                    return matrix
         
         # Generează matrice random
         import random
