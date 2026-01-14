@@ -1115,21 +1115,54 @@ Exemple de întrebări acceptate:
         return "0 2 0 0\n0 0 0 3\n4 0 0 0\n0 0 1 0"
     
     def _extract_minmax_tree(self, text):
-        """Extrage arbore MinMax din text"""
-        # Caută liste imbricate: [[1,2],[3,4]] sau [[[1,2],[3,4]],[[5,6],[7,8]]]
+        """Extrage arbore MinMax din text - din liste sau din vizualizare"""
         import ast
         
-        # Găsește pattern-uri de liste
-        list_pattern = r'\[[\[\],\d\s]+\]'
+        # Metoda 1: Caută liste Python explicite: [[1,2],[3,4]]
+        list_pattern = r'\[[\[\],\-\d\s]+\]'
         matches = re.findall(list_pattern, text)
         
         for match in matches:
             try:
                 tree = ast.literal_eval(match)
-                if isinstance(tree, list):
+                if isinstance(tree, list) and len(tree) > 0:
                     return tree
             except:
                 continue
+        
+        # Metoda 2: Parsează din vizualizare text "frunză: 0", "frunză: 6", etc.
+        leaf_values = re.findall(r'frunz[ăa]:\s*(-?\d+)', text, re.IGNORECASE)
+        
+        if len(leaf_values) >= 4:
+            # Convertește la int
+            leaves = [int(v) for v in leaf_values]
+            
+            # Construiește arbore binar complet
+            # Presupunem structura: nivel 0 (MAX) -> nivel 1 (MIN) -> nivel 2 (MAX) -> nivel 3 (frunze)
+            
+            if len(leaves) == 4:
+                # Arbore simplu: 2 noduri MIN, fiecare cu 2 frunze
+                return [[leaves[0], leaves[1]], [leaves[2], leaves[3]]]
+            
+            elif len(leaves) == 8:
+                # Arbore complex: 2 noduri MIN, fiecare cu 2 noduri MAX, fiecare cu 2 frunze
+                return [
+                    [[leaves[0], leaves[1]], [leaves[2], leaves[3]]],
+                    [[leaves[4], leaves[5]], [leaves[6], leaves[7]]]
+                ]
+            
+            elif len(leaves) == 16:
+                # Arbore foarte complex: 2->4->8->16
+                return [
+                    [
+                        [[leaves[0], leaves[1]], [leaves[2], leaves[3]]],
+                        [[leaves[4], leaves[5]], [leaves[6], leaves[7]]]
+                    ],
+                    [
+                        [[leaves[8], leaves[9]], [leaves[10], leaves[11]]],
+                        [[leaves[12], leaves[13]], [leaves[14], leaves[15]]]
+                    ]
+                ]
         
         # Default tree (arbore simplu 2 nivele)
         return [[[9, 7], [10, 1]], [[7, 6], [1, 5]]]
